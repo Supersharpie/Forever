@@ -60,3 +60,7 @@ tools/db2tool/cdncache/
 tools/database/*.db
 
 __pycache__/
+
+# SGJ study driver build output
+/sgjsim.exe
+/sgj/*_out.json

@@ -1,6 +1,8 @@
 package paladin
 
 import (
+	"os"
+	"strconv"
 	"time"
 
 	"github.com/wowsims/forever/sim/core"
@@ -249,13 +251,33 @@ func (paladin *Paladin) applyReckoning() {
 	// The extra attack (20178) is the Classic one, as on master: it pulls the next main-hand
 	// swing to now rather than adding a free swing.
 
+	// SGJ study patch (client 1.60.1.70291): Reckoning procs at most once per 1.5 s
+	// (SpellAuraOptions 20177 ProcCategoryRecovery 1500), one lockout for both triggers.
+	// SGJ_RECK_ICD_MS overrides it (0 = the 70245 behaviour).
+	icdMs := 1500
+	if v := os.Getenv("SGJ_RECK_ICD_MS"); v != "" {
+		if n, err := strconv.Atoi(v); err == nil {
+			icdMs = n
+		}
+	}
+	icd := core.Cooldown{Timer: paladin.NewTimer(), Duration: time.Duration(icdMs) * time.Millisecond}
+	proc := func(sim *core.Simulation) {
+		if icdMs > 0 {
+			if !icd.IsReady(sim) {
+				return
+			}
+			icd.Use(sim)
+		}
+		paladin.AutoAttacks.ExtraMHAttack(sim)
+	}
+
 	paladin.MakeProcTriggerAura(core.ProcTrigger{
 		Name:       "Reckoning - Block" + paladin.Label,
 		Callback:   core.CallbackOnSpellHitTaken,
 		Outcome:    core.OutcomeBlock,
 		ProcChance: blockChance,
 		Handler: func(sim *core.Simulation, _ *core.Spell, _ *core.SpellResult) {
-			paladin.AutoAttacks.ExtraMHAttack(sim)
+			proc(sim)
 		},
 	})
 
@@ -265,7 +287,7 @@ func (paladin *Paladin) applyReckoning() {
 		Outcome:    core.OutcomeCrit,
 		ProcChance: critChance,
 		Handler: func(sim *core.Simulation, _ *core.Spell, _ *core.SpellResult) {
-			paladin.AutoAttacks.ExtraMHAttack(sim)
+			proc(sim)
 		},
 	})
 }

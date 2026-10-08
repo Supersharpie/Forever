@@ -1,0 +1,4 @@
+[{"label":"Fury smoke","spec":"warrior_dps","race":"Orc","talents":"30305213-55051105050010501","mh":15240,"oh":15238,
+  "aplDir":"ui/specs/warrior/dps/apls","apl":"dps_reck","stance":"Berserker","buffs":"raid","targetLevel":63,"duration":180,"iterations":2000,"seed":7,
+  "bonus":{"Strength":220,"Agility":130,"Stamina":250,"AttackPower":120},"bonusPseudo":{"MeleeHitPercent":6,"MeleeCritPercent":5},
+  "nudges":[{"label":"+20 Str","stats":{"Strength":20}},{"label":"+40 AP","stats":{"AttackPower":40}},{"label":"+1% hit","pseudo":{"MeleeHitPercent":1}},{"label":"+1% crit","pseudo":{"MeleeCritPercent":1}}]}]
