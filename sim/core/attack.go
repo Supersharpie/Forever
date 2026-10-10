@@ -928,6 +928,16 @@ func (aa *AutoAttacks) ExtraMHAttack(sim *Simulation) {
 	sim.rescheduleWeaponAttack(aa.mh.swingAt)
 }
 
+// InstantMHAttack is a free main-hand auto attack now that leaves the swing timer alone
+// (Forever Reckoning, beta testing 2026-10: no reset, can't be stored, lost while not
+// swinging or out of range). It procs seals and on-hit effects like a normal swing.
+func (aa *AutoAttacks) InstantMHAttack(sim *Simulation) {
+	if !aa.AutoSwingMelee || !aa.mh.enabled || !aa.mh.IsInRange() {
+		return
+	}
+	aa.mh.spell.Cast(sim, aa.mh.unit.CurrentTarget)
+}
+
 // ExtraMHAttacks grants count extra attacks that go off back to back (Ironfoe's "2 extra attacks").
 func (aa *AutoAttacks) ExtraMHAttacks(sim *Simulation, count int32) {
 	if count <= 0 || !aa.AutoSwingMelee || !aa.mh.enabled {

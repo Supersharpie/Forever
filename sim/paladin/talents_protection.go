@@ -248,8 +248,10 @@ func (paladin *Paladin) applyReckoning() {
 	blockChance := spellData.Reckoning.FractionAt(paladin.Talents.Reckoning)
 	critChance := blockChance * 2.5
 
-	// The extra attack (20178) is the Classic one, as on master: it pulls the next main-hand
-	// swing to now rather than adding a free swing.
+	// The extra attack (20178, "add 1 extra attack", no aura) is a free swing at once that
+	// leaves the swing timer alone and can't be stored (Forever beta testing, 2026-10).
+	// SGJ_RECK_MODE=classic restores the Classic reading (pull the next swing to now).
+	classicReck := os.Getenv("SGJ_RECK_MODE") == "classic"
 
 	// SGJ study patch (client 1.60.1.70291): Reckoning procs at most once per 1.5 s
 	// (SpellAuraOptions 20177 ProcCategoryRecovery 1500), one lockout for both triggers.
@@ -268,7 +270,11 @@ func (paladin *Paladin) applyReckoning() {
 			}
 			icd.Use(sim)
 		}
-		paladin.AutoAttacks.ExtraMHAttack(sim)
+		if classicReck {
+			paladin.AutoAttacks.ExtraMHAttack(sim)
+			return
+		}
+		paladin.AutoAttacks.InstantMHAttack(sim)
 	}
 
 	paladin.MakeProcTriggerAura(core.ProcTrigger{
