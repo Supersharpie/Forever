@@ -1,6 +1,7 @@
 package rogue
 
 import (
+	"os"
 	"time"
 
 	"github.com/wowsims/forever/sim/core"
@@ -26,7 +27,21 @@ const (
 	instantPoisonBaseDamage = 76.0
 	instantPoisonVariance   = 24.0
 	deadlyPoisonTickDamage  = 23.0
+
+	// Attack power scaling is server-side (the client effects carry no AP coefficient). The devs give 0.5% of attack
+	// power for Instant Poison and 0.45% for Deadly Poison (forever-bugs #100). The Deadly ratio is taken per tick per
+	// stack, as server spell data states periodic coefficients; SGJ_DP_AP=app spreads it over the 4 ticks instead
+	// (an unverified reading kept for comparison).
+	instantPoisonAPCoef = 0.005
+	deadlyPoisonAPCoef  = 0.0045
 )
+
+func deadlyPoisonTickAPCoef() float64 {
+	if os.Getenv("SGJ_DP_AP") == "app" {
+		return deadlyPoisonAPCoef / 4
+	}
+	return deadlyPoisonAPCoef
+}
 
 func (rogue *Rogue) applyPoisons() {
 	rogue.applyDeadlyPoison()
@@ -68,7 +83,8 @@ func (rogue *Rogue) registerDeadlyPoisonSpell() {
 			TickLength:    time.Second * 3,
 
 			OnSnapshot: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
-				dot.Snapshot(target, deadlyPoisonTickDamage*float64(dot.GetStacks()))
+				perStack := deadlyPoisonTickDamage + deadlyPoisonTickAPCoef()*dot.Spell.MeleeAttackPower(target)
+				dot.Snapshot(target, perStack*float64(dot.GetStacks()))
 			},
 			// The dot is 25349, which carries Periodic Can Crit in the client (25347 is the imbue).
 			OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
@@ -168,7 +184,7 @@ func (rogue *Rogue) registerInstantPoisonSpell() {
 		ThreatMultiplier:         1,
 
 		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-			damage := sim.Roll(instantPoisonBaseDamage, instantPoisonBaseDamage+instantPoisonVariance)
+			damage := sim.Roll(instantPoisonBaseDamage, instantPoisonBaseDamage+instantPoisonVariance) + instantPoisonAPCoef*spell.MeleeAttackPower(target)
 			spell.CalcAndDealDamage(sim, target, damage, spell.OutcomeMagicHitAndCrit)
 		},
 	})
