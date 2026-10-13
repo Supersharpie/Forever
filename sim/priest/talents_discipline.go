@@ -75,7 +75,8 @@ func (priest *Priest) applyWandSpecialization() {
 // states it as two SPELL_AURA_ADD_PCT_MODIFIER effects, damage and dot, so it joins the additive
 // bucket rather than multiplying. 1225132's masks name Holy Nova, Chastise, Divine Grace and
 // Contingency Plan (damage) and Shadow Word: Pain and Devouring Plague (dot) - not Mind Flay,
-// Penance, Shadow Word: Death or Starshards.
+// Penance, Shadow Word: Death or Starshards. The devs called the Mind Flay and Shadow Word: Death
+// gaps bugs and fixed them server-side (forever-bugs #322, #328, October 2026), so both are added.
 func (priest *Priest) applyTwinDisciplines() {
 	if priest.Talents.TwinDisciplines == 0 {
 		return
@@ -83,7 +84,7 @@ func (priest *Priest) applyTwinDisciplines() {
 
 	priest.AddStaticMod(core.SpellModConfig{
 		ClassMask: PriestSpellHolyNova | PriestSpellChastise | PriestSpellDivineGrace | PriestSpellContingencyPlan |
-			PriestSpellShadowWordPain | PriestSpellDevouringPlague,
+			PriestSpellShadowWordPain | PriestSpellDevouringPlague | PriestSpellMindFlay | PriestSpellShadowWordDeath,
 		FloatValue: spellData.TwinDisciplines.EffectAt(1).FractionAt(priest.Talents.TwinDisciplines),
 		Kind:       core.SpellMod_DamageDone_Flat,
 	})
