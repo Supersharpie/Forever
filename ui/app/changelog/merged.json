@@ -1,5 +1,113 @@
 [
 	{
+		"number": 776,
+		"title": "Fingers of Frost procs at Frostbolt's cast end, not its impact",
+		"mergedAt": "2026-10-13",
+		"url": "https://github.com/ElliotWood/Forever/pull/776"
+	},
+	{
+		"number": 775,
+		"title": "Maelstrom Weapon procs at 10 PPM at every rank",
+		"mergedAt": "2026-10-13",
+		"url": "https://github.com/ElliotWood/Forever/pull/775"
+	},
+	{
+		"number": 774,
+		"title": "hunter: Improved Tracking counts on the default Unknown target (#768)",
+		"mergedAt": "2026-10-13",
+		"url": "https://github.com/ElliotWood/Forever/pull/774"
+	},
+	{
+		"number": 773,
+		"title": "Cat default rotation keeps Rake up",
+		"mergedAt": "2026-10-13",
+		"url": "https://github.com/ElliotWood/Forever/pull/773"
+	},
+	{
+		"number": 772,
+		"title": "Rake scales with attack power (5% on the hit and each tick); the hit ignores armor",
+		"mergedAt": "2026-10-13",
+		"url": "https://github.com/ElliotWood/Forever/pull/772"
+	},
+	{
+		"number": 771,
+		"title": "[DB] Update to 1.60.1.70338 with hotfixes as of 2026-10-13",
+		"mergedAt": "2026-10-13",
+		"url": "https://github.com/ElliotWood/Forever/pull/771"
+	},
+	{
+		"number": 770,
+		"title": "Wowhead Forever data changed (2026-10-13)",
+		"mergedAt": "2026-10-13",
+		"url": "https://github.com/ElliotWood/Forever/pull/770"
+	},
+	{
+		"number": 767,
+		"title": "[DB] Update to 1.60.1.70338 with hotfixes as of 2026-10-12",
+		"mergedAt": "2026-10-12",
+		"url": "https://github.com/ElliotWood/Forever/pull/767"
+	},
+	{
+		"number": 766,
+		"title": "Wowhead Forever data changed (2026-10-12)",
+		"mergedAt": "2026-10-12",
+		"url": "https://github.com/ElliotWood/Forever/pull/766"
+	},
+	{
+		"number": 765,
+		"title": "[DB] Update to 1.60.1.70338 with hotfixes as of 2026-10-11",
+		"mergedAt": "2026-10-11",
+		"url": "https://github.com/ElliotWood/Forever/pull/765"
+	},
+	{
+		"number": 764,
+		"title": "Wowhead Forever data changed (2026-10-11)",
+		"mergedAt": "2026-10-11",
+		"url": "https://github.com/ElliotWood/Forever/pull/764"
+	},
+	{
+		"number": 763,
+		"title": "[DB] Update to 1.60.1.70338 with hotfixes as of 2026-10-10",
+		"mergedAt": "2026-10-10",
+		"url": "https://github.com/ElliotWood/Forever/pull/763"
+	},
+	{
+		"number": 762,
+		"title": "Update DB: read client 70291+'s new armor aura, follow two renames (#758)",
+		"mergedAt": "2026-10-10",
+		"url": "https://github.com/ElliotWood/Forever/pull/762"
+	},
+	{
+		"number": 761,
+		"title": "Forever client build 1.60.1.70338",
+		"mergedAt": "2026-10-10",
+		"url": "https://github.com/ElliotWood/Forever/pull/761"
+	},
+	{
+		"number": 760,
+		"title": "Forever client build 1.60.1.70334",
+		"mergedAt": "2026-10-10",
+		"url": "https://github.com/ElliotWood/Forever/pull/760"
+	},
+	{
+		"number": 759,
+		"title": "Wowhead Forever data changed (2026-10-10)",
+		"mergedAt": "2026-10-10",
+		"url": "https://github.com/ElliotWood/Forever/pull/759"
+	},
+	{
+		"number": 757,
+		"title": "Forever client build 1.60.1.70291",
+		"mergedAt": "2026-10-09",
+		"url": "https://github.com/ElliotWood/Forever/pull/757"
+	},
+	{
+		"number": 756,
+		"title": "Wowhead Forever data changed (2026-10-09)",
+		"mergedAt": "2026-10-09",
+		"url": "https://github.com/ElliotWood/Forever/pull/756"
+	},
+	{
 		"number": 754,
 		"title": "paladin: Hammer of the Righteous hits 4 targets, cast on 2+ targets",
 		"mergedAt": "2026-10-08",

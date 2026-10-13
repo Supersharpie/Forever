@@ -191,8 +191,8 @@ dps_results: {
 dps_results: {
  key: "TestCombat-AllItems-CursedMurlocEye-273840"
  value: {
-  dps: 335.33897
-  tps: 166.66347
+  dps: 326.43149
+  tps: 162.23645
  }
 }
 dps_results: {
